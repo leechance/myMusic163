@@ -12,7 +12,7 @@ class Mod extends Component {
             playlists: '歌单'
         }
         return (
-            <div className="suggest-list" onTouchStart={e=>{e.stopPropagation()}}
+            <ul className="suggest-list" onTouchStart={e => { e.stopPropagation() }}
                 style={{
                     display: showSug ? 'block' : 'none',
                     backgroundColor: '#fff',
@@ -27,40 +27,37 @@ class Mod extends Component {
                     zIndex: 2
                 }}
             >
-                <ul>
-                    <li key='default-sug' style={{
-                        borderBottom: '1px solid #efeff4',
-                        height: '28px',
-                        lineHeight: '28px',
-                        display: 'flex',
-                        color: '#108ee9'
-                    }} onClick={this.props.submitKeywords}>
-                        <i key='1i' style={{ padding: '0 8px 0 15px', flex: 'none' }}>搜索</i>
-                        <span key='1span'
-                            style={styles.name}>
-                            {keywords}
-                        </span>
-                    </li>
-                    {
-                        data.map(ele => {
-                            return (
-                                <li key={ele.id} className='search-list'
-                                    style={styles.item}
-                                    onClick={this.toDetailPage.bind(this, ele)}
-                                >
-                                    <i key={ele.id + 'i'} style={styles.tip}>
-                                        {translater[ele.type]}
-                                    </i>
-                                    <span key={ele.id + 'span'} style={styles.name}>
-                                        {ele.name}
-                                    </span>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-
-            </div>
+                <li key='default-sug' style={{
+                    borderBottom: '1px solid #efeff4',
+                    height: '28px',
+                    lineHeight: '28px',
+                    display: 'flex',
+                    color: '#108ee9'
+                }} onClick={this.props.submitKeywords}>
+                    <i key='1i' style={{ padding: '0 8px 0 15px', flex: 'none' }}>搜索</i>
+                    <span key='1span'
+                        style={styles.name}>
+                        {keywords}
+                    </span>
+                </li>
+                {
+                    data.map(ele => {
+                        return (
+                            <li key={ele.id} className='search-list'
+                                style={styles.item}
+                                onClick={this.toDetailPage.bind(this, ele)}
+                            >
+                                <i key={ele.id + 'i'} style={styles.tip}>
+                                    {translater[ele.type]}
+                                </i>
+                                <span key={ele.id + 'span'} style={styles.name}>
+                                    {ele.name}
+                                </span>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
         )
     }
     toDetailPage(data) {
@@ -68,7 +65,7 @@ class Mod extends Component {
     }
 }
 const styles = {
-    item:{
+    item: {
         borderBottom: '1px solid #efeff4',
         height: '28px',
         lineHeight: '28px',
@@ -80,7 +77,7 @@ const styles = {
         flex: 'none',
         color: '#999'
     },
-    name:{
+    name: {
         flex: 1,
         overflow: 'hidden',
         whiteSpace: 'nowrap',

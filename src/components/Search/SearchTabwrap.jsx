@@ -16,7 +16,6 @@ class Mod extends Component {
         return (
             <div className='search-tab-wrap' style={{ display: showList ? 'block' : 'none', ...styles.wrap }}>
                 <Tabs tabs={tabs}
-                    style={styles.tab}
                     initialPage={0}
                     onChange={tab => { tabChange(tab) }}
                 >
@@ -35,10 +34,6 @@ const styles = {
         backgroundColor: '#f5f5f5',
         flex: 1,
         overflow: 'hidden'
-    },
-    tab: {
-        flex: 1,
-        backgroundColor: '#fff',
     }
 }
 export default Mod;

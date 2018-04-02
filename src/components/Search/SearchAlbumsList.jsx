@@ -19,7 +19,6 @@ class Mod extends Component {
             >
                 <ul>
                     {list.map(item => {
-
                         return (
                             <li key={item.id + 'li'} style={styles.item}>
                                 <img src={item.blurPicUrl} style={styles.img} alt={item.name} />
