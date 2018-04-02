@@ -34,8 +34,8 @@ class Mod extends Component {
                     display: 'flex',
                     color: '#108ee9'
                 }} onClick={this.props.submitKeywords}>
-                    <i key='1i' style={{ padding: '0 8px 0 15px', flex: 'none' }}>搜索</i>
-                    <span key='1span'
+                    <i style={{ padding: '0 8px 0 15px', flex: 'none' }}>搜索</i>
+                    <span
                         style={styles.name}>
                         {keywords}
                     </span>
@@ -47,10 +47,10 @@ class Mod extends Component {
                                 style={styles.item}
                                 onClick={this.toDetailPage.bind(this, ele)}
                             >
-                                <i key={ele.id + 'i'} style={styles.tip}>
+                                <i style={styles.tip}>
                                     {translater[ele.type]}
                                 </i>
-                                <span key={ele.id + 'span'} style={styles.name}>
+                                <span style={styles.name}>
                                     {ele.name}
                                 </span>
                             </li>

@@ -41,7 +41,7 @@ export default {
         switch (type) {
             case "SET_SEARCH_PLAYLISTS":
                 return data
-            case "ADD_SEARCH_PLAYLIST":
+            case "ADD_SEARCH_PLAYLISTS":
                 return [...state,...data]
             default:
                 return state

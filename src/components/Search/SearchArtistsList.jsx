@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import store from '../../store/store';
 import { PullToRefresh } from 'antd-mobile';
 
 class Mod extends Component {
-
+    state = {
+        height: document.documentElement.clientHeight - 43.5 - 45 - 44,
+    };
     render() {
         let list = store.getState().searchArtists;
         let { refreshing, addData } = this.props
-
         return (
             <PullToRefresh
                 ref={el => this.ptr = el}
-                style={styles.wrap}
+                style={{ height: this.state.height, overflow: 'auto' }}
                 direction='up'
                 refreshing={refreshing}
-                distanceToRefresh={40}
                 onRefresh={addData}
             >
                 <ul>
                     {list.map(item => {
                         return (
                             <li key={item.id + 'li'} style={styles.item}>
-                                <img key={item.id + 'img'} src={item.img1v1Url} style={styles.img} alt={item.name} />
-                                <span key={item.id + 'sp'} style={styles.name}>{item.name} <i key={item.id + 'i'} style={styles.cname}>{item.alias.map(cname => '(' + cname + ')')}</i></span>
-
+                                <img src={item.img1v1Url} style={styles.img} alt={item.name} />
+                                <span style={styles.name}>{item.name} <i style={styles.cname}>{item.alias.map(cname => '(' + cname + ')')}</i></span>
                             </li>
                         )
                     })}
@@ -33,10 +33,6 @@ class Mod extends Component {
     }
 }
 const styles = {
-    wrap: {
-        overflow: 'auto',
-        height: '100%'
-    },
     item: {
         backgroundColor: '#fff',
         borderBottom: '1px solid #EFEFF4',

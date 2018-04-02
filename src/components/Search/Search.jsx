@@ -118,7 +118,7 @@ class Mod extends Component {
             type: "SET_SEARCH_" + type.toUpperCase(),
             data: json.result[type]
           })
-          loadedTab[type] = 30;
+          loadedTab[type] = 31;
           this.setState({ loadedTab })
           Toast.hide()
         }

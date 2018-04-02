@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import store from '../../store/store';
 import { PullToRefresh } from 'antd-mobile';
 
@@ -12,23 +13,22 @@ function simpleCount(count) {
     }
 }
 class Mod extends Component {
-
+    state = {
+        height: document.documentElement.clientHeight - 43.5 - 45 - 44,
+    };
     render() {
         let list = store.getState().searchPlaylists;
         let { refreshing, addData } = this.props
-
         return (
             <PullToRefresh
                 ref={el => this.ptr = el}
-                style={styles.wrap}
+                style={{ height: this.state.height, overflow: 'auto' }}
                 direction='up'
                 refreshing={refreshing}
-                distanceToRefresh={40}
                 onRefresh={addData}
             >
                 <ul>
                     {list.map(item => {
-
                         return (
                             <li key={item.id + 'li'} style={styles.item}>
                                 <img src={item.coverImgUrl} style={styles.img} alt={item.name} />
@@ -48,15 +48,7 @@ class Mod extends Component {
         );
     }
 }
-function dateString(time) {
-    let date = new Date(time)
-    return date.getFullYear() + '.' + date.getMonth() + '.' + date.getDate()
-}
 const styles = {
-    wrap: {
-        overflow: 'auto',
-        height: '100%'
-    },
     item: {
         backgroundColor: '#fff',
         borderBottom: '1px solid #EFEFF4',

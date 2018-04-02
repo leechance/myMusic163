@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { PullToRefresh } from 'antd-mobile';
 import store from '../../store/store';
 
 class Mod extends Component {
+    state = {
+        height: document.documentElement.clientHeight - 43.5 - 45 - 44,
+    };
     render() {
         let { refreshing, addData } = this.props
         let list = store.getState().searchSongs
-
         return (
             <PullToRefresh
                 ref={el => this.ptr = el}
-                style={styles.wrap}
+                style={{ height: this.state.height, overflow: 'auto' }}
                 direction='up'
                 refreshing={refreshing}
-                distanceToRefresh={40}
                 onRefresh={addData}
             >
                 <ul>
                     {list.map(item => {
                         return (
                             <li key={item.id + 'li'} style={styles.item}>
-                                <p key={item.id + 'p'} style={styles.songName}>{item.name}</p>
-                                <span key={item.id + 'sp'} style={styles.songFrom}>
+                                <p style={styles.songName}>{item.name}</p>
+                                <span style={styles.songFrom}>
                                     {item.artists.map((person, index) => index === 0 ? person.name : (' / ' + person.name))} -- {item.album.name}
                                 </span>
                             </li>
@@ -33,10 +35,6 @@ class Mod extends Component {
     }
 }
 const styles = {
-    wrap: {
-        overflow: 'auto',
-        height: '100%'
-    },
     item: {
         backgroundColor: '#fff',
         borderBottom: '1px solid #EFEFF4',

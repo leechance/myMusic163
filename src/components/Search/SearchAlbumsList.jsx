@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import store from '../../store/store';
 import { PullToRefresh } from 'antd-mobile';
 
 class Mod extends Component {
-
+    state = {
+        height: document.documentElement.clientHeight - 43.5 - 45 - 44,
+    };
     render() {
         let list = store.getState().searchAlbums;
         let { refreshing, addData } = this.props
-
         return (
             <PullToRefresh
                 ref={el => this.ptr = el}
-                style={styles.wrap}
+                style={{ height: this.state.height, overflow: 'auto' }}
                 direction='up'
                 refreshing={refreshing}
-                distanceToRefresh={40}
                 onRefresh={addData}
             >
                 <ul>
@@ -44,10 +45,6 @@ function dateString(time) {
     return date.getFullYear() + '.' + date.getMonth() + '.' + date.getDate()
 }
 const styles = {
-    wrap: {
-        overflow: 'auto',
-        height: '100%'
-    },
     item: {
         backgroundColor: '#fff',
         borderBottom: '1px solid #EFEFF4',

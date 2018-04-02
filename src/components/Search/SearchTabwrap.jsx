@@ -18,6 +18,7 @@ class Mod extends Component {
                 <Tabs tabs={tabs}
                     initialPage={0}
                     onChange={tab => { tabChange(tab) }}
+                    useOnPan={false}
                 >
                     <SearchSongsList addData={addData} refreshing={refreshing} />
                     <SearchArtistsList addData={addData} refreshing={refreshing} />
