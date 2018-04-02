@@ -1,5 +1,12 @@
 import React,{ Component } from 'react';
-import store from '../../store/store'
+import {Tabs} from 'antd-mobile';
+import store from '../../store/store';
+
+const tabs=[
+  {title:'发现'},
+  {title:'我的'},
+  {title:'电台'}
+]
 
 class Mod extends Component {
   state={
@@ -8,16 +15,14 @@ class Mod extends Component {
   render() {
     
     return (
-      <div className=''>
-        <input type="text" ref='item'/><button onClick={this.addItem}>add</button>
-        <ul>
-          {store.getState().todoReducer.map((item,index)=>(
-            <li key={item+index}>
-              {item}---{index}
-              <button onClick={this.delItem.bind(this,index)}>删除</button>
-            </li>
-            ))}
-        </ul>
+      <div className='home'>
+        <Tabs tabs={tabs}
+          initialPage={0}
+          onChange={tab => { console.log('aaa') }}
+          useOnPan={false}
+        >
+
+        </Tabs>
       </div>
     );
   }

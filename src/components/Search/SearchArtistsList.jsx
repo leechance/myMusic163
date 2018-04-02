@@ -1,37 +1,25 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import store from '../../store/store';
-import { PullToRefresh } from 'antd-mobile';
+import React from 'react';
 
-class Mod extends Component {
-    state = {
-        height: document.documentElement.clientHeight - 43.5 - 45 - 44,
-    };
-    render() {
-        let list = store.getState().searchArtists;
-        let { refreshing, addData } = this.props
-        return (
-            <PullToRefresh
-                ref={el => this.ptr = el}
-                style={{ height: this.state.height, overflow: 'auto' }}
-                direction='up'
-                refreshing={refreshing}
-                onRefresh={addData}
-            >
-                <ul>
-                    {list.map(item => {
-                        return (
-                            <li key={item.id + 'li'} style={styles.item}>
-                                <img src={item.img1v1Url} style={styles.img} alt={item.name} />
-                                <span style={styles.name}>{item.name} <i style={styles.cname}>{item.alias.map(cname => '(' + cname + ')')}</i></span>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </PullToRefresh>
-        );
-    }
+import Wrap from './SearchPullToRefreshWrap';
+
+import store from '../../store/store';
+
+let Mod = props => {
+    let list = store.getState().searchArtists;
+    return (
+        <ul>
+            {list.map(item => {
+                return (
+                    <li key={item.id + 'li'} style={styles.item}>
+                        <img src={item.img1v1Url} style={styles.img} alt={item.name} />
+                        <span style={styles.name}>{item.name} <i style={styles.cname}>{item.alias.map(cname => '(' + cname + ')')}</i></span>
+                    </li>
+                )
+            })}
+        </ul>
+    )
 }
+
 const styles = {
     item: {
         backgroundColor: '#fff',
@@ -59,4 +47,4 @@ const styles = {
     }
 }
 
-export default Mod;
+export default Wrap(Mod);

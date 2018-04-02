@@ -1,45 +1,33 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import store from '../../store/store';
-import { PullToRefresh } from 'antd-mobile';
+import React from 'react';
 
-class Mod extends Component {
-    state = {
-        height: document.documentElement.clientHeight - 43.5 - 45 - 44,
-    };
-    render() {
-        let list = store.getState().searchAlbums;
-        let { refreshing, addData } = this.props
-        return (
-            <PullToRefresh
-                ref={el => this.ptr = el}
-                style={{ height: this.state.height, overflow: 'auto' }}
-                direction='up'
-                refreshing={refreshing}
-                onRefresh={addData}
-            >
-                <ul>
-                    {list.map(item => {
-                        return (
-                            <li key={item.id + 'li'} style={styles.item}>
-                                <img src={item.blurPicUrl} style={styles.img} alt={item.name} />
-                                <p style={styles.right}>
-                                    <span style={styles.aname}>
-                                        {item.name}
-                                        <i style={styles.cname}>{item.containedSong ? `（包含单曲：${item.containedSong}）` : ''}</i>
-                                    </span>
-                                    <i style={styles.cname}>
-                                        {item.artists.map((art, index) => index === 0 ? art.name : ' / ' + art.name)} -- {dateString(item.publishTime)}
-                                    </i>
-                                </p>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </PullToRefresh>
-        );
-    }
+import Wrap from './SearchPullToRefreshWrap';
+
+import store from '../../store/store';
+
+let Mod = props => {
+    let list = store.getState().searchAlbums;
+    return (
+        <ul>
+            {list.map(item => {
+                return (
+                    <li key={item.id + 'li'} style={styles.item}>
+                        <img src={item.blurPicUrl} style={styles.img} alt={item.name} />
+                        <p style={styles.right}>
+                            <span style={styles.aname}>
+                                {item.name}
+                                <i style={styles.cname}>{item.containedSong ? `（包含单曲：${item.containedSong}）` : ''}</i>
+                            </span>
+                            <i style={styles.cname}>
+                                {item.artists.map((art, index) => index === 0 ? art.name : ' / ' + art.name)} -- {dateString(item.publishTime)}
+                            </i>
+                        </p>
+                    </li>
+                )
+            })}
+        </ul>
+    )
 }
+
 function dateString(time) {
     let date = new Date(time)
     return date.getFullYear() + '.' + date.getMonth() + '.' + date.getDate()
@@ -75,4 +63,4 @@ const styles = {
     }
 }
 
-export default Mod;
+export default Wrap(Mod);
