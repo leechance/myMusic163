@@ -35,8 +35,7 @@ class Mod extends Component {
                     color: '#108ee9'
                 }} onClick={this.props.submitKeywords}>
                     <i style={{ padding: '0 8px 0 15px', flex: 'none' }}>搜索</i>
-                    <span
-                        style={styles.name}>
+                    <span style={styles.name}>
                         {keywords}
                     </span>
                 </li>

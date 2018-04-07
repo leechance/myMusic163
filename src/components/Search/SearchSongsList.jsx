@@ -5,12 +5,19 @@ import Wrap from './SearchPullToRefreshWrap'
 import store from '../../store/store';
 
 let Mod = props => {
-    let list = store.getState().searchSongs    
+    let list = store.getState().searchSongs
     return (
         <ul>
             {list.map(item => {
                 return (
-                    <li key={item.id + 'li'} style={styles.item}>
+                    <li key={item.id} style={styles.item}
+                        onClick={() => {
+                            store.dispatch({
+                                type: 'PLAY_ONE_SONG',
+                                data: item
+                            })
+                        }}
+                    >
                         <p style={styles.songName}>{item.name}</p>
                         <span style={styles.songFrom}>
                             {item.artists.map((person, index) => index === 0 ? person.name : (' / ' + person.name))} -- {item.album.name}
@@ -21,7 +28,6 @@ let Mod = props => {
         </ul>
     )
 }
-
 const styles = {
     item: {
         backgroundColor: '#fff',

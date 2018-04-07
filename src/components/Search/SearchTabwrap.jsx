@@ -9,20 +9,21 @@ import SearchPlaylistsList from './SearchPlaylistsList'
 class Mod extends Component {
     render() {
         const tabs = [
-            { title: '单曲', code: 1, type: 'songs' ,component:SearchSongsList},
-            { title: '歌手', code: 100, type: 'artists' ,component:SearchArtistsList},
-            { title: '专辑', code: 10, type: 'albums' ,component:SearchAlbumsList},
-            { title: '歌单', code: 1000, type: 'playlists' ,component:SearchPlaylistsList}
+            { title: '单曲', code: 1, type: 'songs', component: SearchSongsList, index: 0 },
+            { title: '歌手', code: 100, type: 'artists', component: SearchArtistsList, index: 1 },
+            { title: '专辑', code: 10, type: 'albums', component: SearchAlbumsList, index: 2 },
+            { title: '歌单', code: 1000, type: 'playlists', component: SearchPlaylistsList, index: 3 }
         ];
-        let { showList, tabChange, addData, refreshing } = this.props;
+        let { showList, tabChange, addData, refreshing, onTabClick } = this.props;
         return (
             <div className='search-tab-wrap' style={{ display: showList ? 'block' : 'none', ...styles.wrap }}>
                 <Tabs tabs={tabs}
                     initialPage={0}
                     onChange={tab => { tabChange(tab) }}
                     useOnPan={false}
+                    onTabClick={onTabClick}
                 >
-                    {tabs.map(item=>{
+                    {tabs.map(item => {
                         let Com = item.component
                         return (
                             <Com key={item.type} addData={addData} refreshing={refreshing} />
@@ -36,7 +37,6 @@ class Mod extends Component {
 
 const styles = {
     wrap: {
-        backgroundColor: '#f5f5f5',
         flex: 1,
         overflow: 'hidden'
     }

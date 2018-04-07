@@ -1,11 +1,14 @@
 import React,{ Component } from 'react';
 import {Tabs} from 'antd-mobile';
+
+import HomeFind from '../HomeFind/HomeFind';
+
 import store from '../../store/store';
 
 const tabs=[
-  {title:'发现'},
-  {title:'我的'},
-  {title:'电台'}
+  {title:'发现',type:'find'},
+  {title:'我的',type:'user'},
+  {title:'电台',type:'dj'}
 ]
 
 class Mod extends Component {
@@ -18,26 +21,13 @@ class Mod extends Component {
       <div className='home'>
         <Tabs tabs={tabs}
           initialPage={0}
-          onChange={tab => { console.log('aaa') }}
+          swipeable={false}
           useOnPan={false}
         >
-
+        <HomeFind />
         </Tabs>
       </div>
     );
-  }
-  addItem=()=>{
-    let val=this.refs.item.value;
-    store.dispatch({
-      type:"ADD_ITEM",
-      data:val
-    })
-  }
-  delItem=(index)=>{
-    store.dispatch({
-      type:"DEL_ITEM",
-      data:index
-    })
   }
 }
 

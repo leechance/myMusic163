@@ -39,7 +39,7 @@ class Mod extends Component {
           style={{ flex: 'none' }}
         />
         <SearchSuggest keywords={keywords} showSug={showSug} submitKeywords={this.submitKeywords} />
-        <SearchTabwrap showList={showList} tabChange={this.tabChange} refreshing={refreshing} addData={this.addData} />
+        <SearchTabwrap showList={showList} tabChange={this.tabChange} refreshing={refreshing} addData={this.addData} onTabClick={this.onTabClick} />
       </div>
     );
   }
@@ -50,7 +50,8 @@ class Mod extends Component {
     this.props.history.go(-1)
   }
   onTouchStart = (e) => {
-    if (e.target.className !== 'am-search-value') {
+    let elcn = e.target.className;
+    if (elcn !== 'am-search-value' && elcn !== 'am-search-clear am-search-clear-show') {
       document.querySelector('.am-search-value').blur();
       this.setState({ showSug: false })
     }
@@ -118,8 +119,9 @@ class Mod extends Component {
             type: "SET_SEARCH_" + type.toUpperCase(),
             data: json.result[type]
           })
-          loadedTab[type] = 31;
+          loadedTab[type] = 30;
           this.setState({ loadedTab })
+          this.goTop()
           Toast.hide()
         }
       })
@@ -131,6 +133,7 @@ class Mod extends Component {
     api.search({
       data: { keywords: searchedKeywords, type: translater[type], offset: loadedTab[type] },
       success: json => {
+        console.log(json)
         if (json.result[type]) {
           store.dispatch({
             type: "ADD_SEARCH_" + type.toUpperCase(),
@@ -139,13 +142,28 @@ class Mod extends Component {
           loadedTab[type] += 30;
           this.setState({ loadedTab, refreshing: false })
         } else {
-          Toast.info('已经到底了', 1, () => { this.setState({ refreshing: false }) }, false)
+          Toast.info('已经到底了', 1, null, false)
+          this.setState({ refreshing: false })
         }
       }
     })
   }
   tabChange = tab => {
     this.setState({ type: tab.type }, () => { this.getResult() })
+  }
+  onTabClick = tab => {
+    if (tab.type === this.state.type) {
+      this.goTop()
+    }
+  }
+  goTop = () => {
+    let wrap = document.querySelector('.am-tabs-pane-wrap-active .am-pull-to-refresh');
+    let timer = setInterval(() => {
+      wrap.scrollTop *= 0.8
+      if (wrap.scrollTop === 0) {
+        clearInterval(timer)
+      }
+    }, 20)
   }
 }
 

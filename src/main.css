@@ -4,7 +4,7 @@ body {
   font-size: 0.28rem;
   overflow: hidden;
 }
-html,body,ul,li,p{
+html,body,ul,li,p,input,button{
   margin: 0;
   padding: 0;
 }
@@ -22,10 +22,23 @@ html,body,#root,.App{
   overflow: hidden;
 }
 .page{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
+  flex:1
+}
+.App{
+  display: flex;
+  flex-direction: column;
+}
+.footer{
+  flex: none
+}
+.mask{
   height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 /* antd组件修改 */
+/* 动画 */
